@@ -1,0 +1,15 @@
+{
+  "name": "telehealth-portal-system",
+  "version": "1.0.0",
+  "description": "Smart, Priority-Based Telehealth Portal System",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "seed": "npm run seed --prefix backend",
+    "build:frontend": "npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.4"
+  }
+}
