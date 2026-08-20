@@ -13,8 +13,9 @@
    ============================================================ */
 .sidebar {
   width: var(--sidebar-width);
-  background: linear-gradient(180deg, var(--slate-900) 0%, var(--slate-950) 100%);
-  color: var(--text-white);
+  background: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -22,15 +23,25 @@
   left: 0;
   bottom: 0;
   z-index: 100;
-  transition: width var(--transition-slow), transform var(--transition-slow);
+  transition: width var(--transition-slow), transform var(--transition-slow), background var(--transition-base), border-color var(--transition-base);
   overflow-y: auto;
   overflow-x: hidden;
 }
 
+[data-theme="dark"] .sidebar {
+  background: #080c16;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+}
+
 .sidebar-header {
   padding: 20px 20px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--border-color);
   flex-shrink: 0;
+}
+
+[data-theme="dark"] .sidebar-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .sidebar-logo {
@@ -38,7 +49,11 @@
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: var(--text-white);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .sidebar-logo {
+  color: #ffffff;
 }
 
 .sidebar-logo-icon {
@@ -51,6 +66,7 @@
   justify-content: center;
   font-size: 1.125rem;
   flex-shrink: 0;
+  color: #ffffff;
   box-shadow: 0 2px 8px rgba(20, 184, 166, 0.3);
 }
 
@@ -61,6 +77,10 @@
 }
 
 .sidebar-logo-text span {
+  color: var(--primary-500);
+}
+
+[data-theme="dark"] .sidebar-logo-text span {
   color: var(--primary-400);
 }
 
@@ -73,6 +93,11 @@
   padding: 3px 8px;
   border-radius: var(--radius-full);
   margin-top: 8px;
+  background: var(--primary-50);
+  color: var(--primary-700);
+}
+
+[data-theme="dark"] .sidebar-role-badge {
   background: rgba(20, 184, 166, 0.15);
   color: var(--primary-400);
 }
@@ -91,7 +116,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  color: var(--slate-500);
+  color: var(--text-muted);
   padding: 16px 8px 6px;
 }
 
@@ -101,7 +126,7 @@
   gap: 12px;
   padding: 10px 12px;
   border-radius: var(--radius-md);
-  color: var(--slate-400);
+  color: var(--text-secondary);
   font-size: 0.875rem;
   font-weight: 500;
   text-decoration: none;
@@ -110,12 +135,23 @@
 }
 
 .sidebar-link:hover {
+  background: var(--slate-100);
+  color: var(--primary-700);
+}
+
+[data-theme="dark"] .sidebar-link:hover {
   background: rgba(255, 255, 255, 0.06);
-  color: var(--text-white);
+  color: #ffffff;
 }
 
 .sidebar-link.active {
-  background: linear-gradient(135deg, rgba(20, 184, 166, 0.15), rgba(20, 184, 166, 0.05));
+  background: var(--primary-50);
+  color: var(--primary-700);
+  font-weight: 600;
+}
+
+[data-theme="dark"] .sidebar-link.active {
+  background: linear-gradient(135deg, rgba(20, 184, 166, 0.2), rgba(20, 184, 166, 0.05));
   color: var(--primary-400);
 }
 
@@ -146,7 +182,7 @@
   padding: 2px 7px;
   border-radius: var(--radius-full);
   background: var(--danger);
-  color: var(--text-white);
+  color: #ffffff;
   min-width: 20px;
   text-align: center;
 }
@@ -154,21 +190,29 @@
 /* Sidebar Footer */
 .sidebar-footer {
   padding: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid var(--border-color);
   flex-shrink: 0;
+}
+
+[data-theme="dark"] .sidebar-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-user {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px;
+  padding: 8px 10px;
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: background var(--transition-fast);
 }
 
 .sidebar-user:hover {
+  background: var(--slate-100);
+}
+
+[data-theme="dark"] .sidebar-user:hover {
   background: rgba(255, 255, 255, 0.06);
 }
 
@@ -194,18 +238,42 @@
 .sidebar-user-name {
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--text-white);
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+[data-theme="dark"] .sidebar-user-name {
+  color: #ffffff;
+}
+
 .sidebar-user-email {
   font-size: 0.6875rem;
-  color: var(--slate-500);
+  color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.sidebar-logout-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.sidebar-logout-btn:hover {
+  background: var(--danger-light);
+  color: var(--danger-dark);
 }
 
 /* ============================================================
@@ -279,6 +347,11 @@
   color: var(--text-primary);
 }
 
+[data-theme="dark"] .topnav-btn:hover {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
 .topnav-btn .notification-dot {
   position: absolute;
   top: 8px;
@@ -288,6 +361,153 @@
   border-radius: 50%;
   background: var(--danger);
   border: 2px solid var(--bg-card);
+}
+
+/* Profile Dropdown */
+.profile-dropdown-wrapper {
+  position: relative;
+}
+
+.topnav-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.topnav-profile-btn:hover {
+  background: var(--slate-100);
+}
+
+[data-theme="dark"] .topnav-profile-btn:hover {
+  background: #1e293b;
+}
+
+.profile-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 260px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  padding: 8px 0;
+  z-index: 1000;
+  animation: slideUp 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] .profile-dropdown-menu {
+  background: #131b2e;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+.profile-dropdown-header {
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-dropdown-user-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-dropdown-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-dropdown-email {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.profile-dropdown-role {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--primary-50);
+  color: var(--primary-700);
+}
+
+[data-theme="dark"] .profile-dropdown-role {
+  background: rgba(20, 184, 166, 0.15);
+  color: var(--primary-400);
+}
+
+.profile-dropdown-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 6px 0;
+}
+
+.profile-dropdown-items {
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.84rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.profile-dropdown-item:hover {
+  background: var(--slate-100);
+  color: var(--primary-700);
+}
+
+[data-theme="dark"] .profile-dropdown-item:hover {
+  background: #1e293b;
+  color: var(--primary-400);
+}
+
+.dropdown-logout-btn {
+  color: var(--danger) !important;
+  margin: 4px 6px 0;
+  width: calc(100% - 12px);
+}
+
+.dropdown-logout-btn:hover {
+  background: var(--danger-light) !important;
+  color: var(--danger-dark) !important;
+}
+
+[data-theme="dark"] .dropdown-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.15) !important;
+  color: #f87171 !important;
 }
 
 .mobile-menu-btn {

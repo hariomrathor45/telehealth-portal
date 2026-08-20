@@ -127,6 +127,8 @@ function App() {
             <Route path="analytics" element={<AdminAnalytics />} />
             <Route path="audit-logs" element={<AdminAuditLogs />} />
             <Route path="settings" element={<AdminSettings />} />
+            <Route path="profile" element={<Navigate to="/admin/settings" replace />} />
+            <Route path="notifications" element={<Navigate to="/admin/audit-logs" replace />} />
           </Route>
 
           {/* Catch-all */}

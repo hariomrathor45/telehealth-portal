@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import ThemeToggle from '../common/ThemeToggle';
@@ -9,7 +9,7 @@ import {
   HiOutlineMenu, HiOutlineX, HiOutlineSearch, HiOutlineDocumentText,
   HiOutlineChartBar, HiOutlineUserCircle, HiOutlineClock,
   HiOutlineClipboardList, HiOutlineShieldCheck, HiOutlineUsers,
-  HiOutlineSparkles,
+  HiOutlineSparkles, HiOutlineChevronDown,
 } from 'react-icons/hi';
 import notificationApi from '../../services/notificationApi';
 import '../../styles/dashboard.css';
@@ -64,13 +64,15 @@ const DashboardLayout = () => {
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const role = user?.role || 'PATIENT';
   const navItems = navConfig[role] || [];
 
   // Determine current page title from path
   const currentNavItem = navItems.find((item) => item.to && location.pathname.startsWith(item.to));
-  const pageTitle = currentNavItem?.label || 'Portal';
+  const pageTitle = currentNavItem?.label || 'Dashboard';
 
   useEffect(() => {
     const fetchUnread = async () => {
@@ -84,7 +86,20 @@ const DashboardLayout = () => {
     fetchUnread();
   }, []);
 
-  const handleLogout = () => {
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setProfileDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLogout = (e) => {
+    if (e) e.stopPropagation();
+    setProfileDropdownOpen(false);
     logout();
     navigate('/login', { replace: true });
   };
@@ -101,6 +116,10 @@ const DashboardLayout = () => {
 
   const displayName = user?.profile?.fullName || (user?.role === 'DOCTOR' ? `Dr. ${user?.email?.split('@')[0]}` : user?.email?.split('@')[0]);
 
+  const profilePath = role === 'ADMIN' ? '/admin/settings' : `/${role.toLowerCase()}/profile`;
+  const notificationsPath = role === 'ADMIN' ? '/admin/audit-logs' : `/${role.toLowerCase()}/notifications`;
+  const dashboardPath = `/${role.toLowerCase()}/dashboard`;
+
   return (
     <div className="dashboard-wrapper">
       {/* Mobile overlay */}
@@ -112,7 +131,7 @@ const DashboardLayout = () => {
       {/* Sidebar */}
       <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
-          <div className="sidebar-logo" onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
+          <div className="sidebar-logo" onClick={() => navigate(dashboardPath)} style={{ cursor: 'pointer' }}>
             <div className="sidebar-logo-icon">
               <FaHeartbeat />
             </div>
@@ -149,13 +168,20 @@ const DashboardLayout = () => {
         </nav>
 
         <div className="sidebar-footer">
-          <div className="sidebar-user" onClick={handleLogout} title="Click to logout">
+          <div className="sidebar-user" onClick={() => navigate(profilePath)} title="View profile">
             <div className="sidebar-user-avatar">{getInitials()}</div>
             <div className="sidebar-user-info">
               <div className="sidebar-user-name">{displayName}</div>
               <div className="sidebar-user-email">{user?.email}</div>
             </div>
-            <HiOutlineLogout size={18} style={{ color: 'var(--slate-400)', flexShrink: 0 }} />
+            <button
+              className="sidebar-logout-btn"
+              onClick={handleLogout}
+              title="Sign Out"
+              aria-label="Sign Out"
+            >
+              <HiOutlineLogout size={18} />
+            </button>
           </div>
         </div>
       </aside>
@@ -172,7 +198,12 @@ const DashboardLayout = () => {
               {sidebarOpen ? <HiOutlineX /> : <HiOutlineMenu />}
             </button>
             <div className="topnav-breadcrumb-wrap" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ fontSize: '0.8125rem', color: 'var(--text-muted)' }}>{roleLabels[role]}</span>
+              <span
+                style={{ fontSize: '0.8125rem', color: 'var(--text-muted)', cursor: 'pointer' }}
+                onClick={() => navigate(dashboardPath)}
+              >
+                {roleLabels[role]}
+              </span>
               <span style={{ color: 'var(--border-color)' }}>/</span>
               <span style={{ fontSize: '0.9375rem', color: 'var(--text-primary)', fontWeight: 600 }}>{pageTitle}</span>
             </div>
@@ -180,10 +211,11 @@ const DashboardLayout = () => {
 
           <div className="topnav-right">
             <ThemeToggle />
+            
             <button
               className="topnav-btn"
               title="Notifications"
-              onClick={() => navigate(`/${role.toLowerCase()}/notifications`)}
+              onClick={() => navigate(notificationsPath)}
               style={{ position: 'relative' }}
             >
               <HiOutlineBell size={18} />
@@ -201,13 +233,86 @@ const DashboardLayout = () => {
                 />
               )}
             </button>
-            <div
-              className="sidebar-user-avatar"
-              style={{ width: 34, height: 34, fontSize: '0.8rem', cursor: 'pointer' }}
-              onClick={() => navigate(`/${role.toLowerCase()}/profile`)}
-              title="View Profile"
-            >
-              {getInitials()}
+
+            {/* Profile Dropdown Container */}
+            <div className="profile-dropdown-wrapper" ref={dropdownRef}>
+              <div
+                className="topnav-profile-btn"
+                onClick={() => setProfileDropdownOpen((prev) => !prev)}
+                title="Account Menu"
+                aria-expanded={profileDropdownOpen}
+              >
+                <div className="sidebar-user-avatar" style={{ width: 34, height: 34, fontSize: '0.8rem' }}>
+                  {getInitials()}
+                </div>
+                <HiOutlineChevronDown
+                  size={14}
+                  style={{
+                    color: 'var(--text-muted)',
+                    transition: 'transform 0.2s ease',
+                    transform: profileDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  }}
+                />
+              </div>
+
+              {profileDropdownOpen && (
+                <div className="profile-dropdown-menu">
+                  <div className="profile-dropdown-header">
+                    <div className="sidebar-user-avatar" style={{ width: 40, height: 40, fontSize: '0.95rem' }}>
+                      {getInitials()}
+                    </div>
+                    <div className="profile-dropdown-user-details">
+                      <div className="profile-dropdown-name">{displayName}</div>
+                      <div className="profile-dropdown-email">{user?.email}</div>
+                      <span className="profile-dropdown-role">{role}</span>
+                    </div>
+                  </div>
+
+                  <div className="profile-dropdown-divider" />
+
+                  <div className="profile-dropdown-items">
+                    <button
+                      className="profile-dropdown-item"
+                      onClick={() => {
+                        setProfileDropdownOpen(false);
+                        navigate(profilePath);
+                      }}
+                    >
+                      <HiOutlineUserCircle size={17} />
+                      <span>My Profile</span>
+                    </button>
+
+                    <button
+                      className="profile-dropdown-item"
+                      onClick={() => {
+                        setProfileDropdownOpen(false);
+                        navigate(role === 'DOCTOR' ? '/doctor/availability' : profilePath);
+                      }}
+                    >
+                      <HiOutlineCog size={17} />
+                      <span>Account Settings</span>
+                    </button>
+
+                    <button
+                      className="profile-dropdown-item"
+                      onClick={() => {
+                        setProfileDropdownOpen(false);
+                        navigate(notificationsPath);
+                      }}
+                    >
+                      <HiOutlineBell size={17} />
+                      <span>Notifications</span>
+                    </button>
+                  </div>
+
+                  <div className="profile-dropdown-divider" />
+
+                  <button className="profile-dropdown-item dropdown-logout-btn" onClick={handleLogout}>
+                    <HiOutlineLogout size={17} />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </header>

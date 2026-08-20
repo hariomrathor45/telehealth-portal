@@ -76,40 +76,40 @@ const LandingPage = () => {
           <div className="priority-preview-card">
             <div className="priority-preview-header">
               <div>
-                <h4 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: 2 }}>Live Priority Queue Demo</h4>
-                <p style={{ color: '#94a3b8', fontSize: '0.8rem' }}>Intelligent queue sorting based on triage score</p>
+                <h4 className="queue-preview-title">Live Priority Queue Demo</h4>
+                <p className="queue-preview-subtitle">Intelligent queue sorting based on triage score</p>
               </div>
               <span className="badge badge-success" style={{ padding: '4px 10px', fontSize: '0.75rem' }}>Active Engine</span>
             </div>
 
             <div className="queue-preview-item very-high">
               <div>
-                <div style={{ color: '#f8fafc', fontWeight: 600, fontSize: '0.9rem' }}>Patient #104 (Chest Pain & Dyspnea)</div>
-                <div style={{ color: '#94a3b8', fontSize: '0.75rem' }}>Waited: 4 mins • Cardiovascular triage</div>
+                <div className="queue-preview-patient-name">Patient #104 (Chest Pain & Dyspnea)</div>
+                <div className="queue-preview-patient-meta">Waited: 4 mins • Cardiovascular triage</div>
               </div>
               <span className="badge badge-danger">CRITICAL (92)</span>
             </div>
 
             <div className="queue-preview-item high">
               <div>
-                <div style={{ color: '#f8fafc', fontWeight: 600, fontSize: '0.9rem' }}>Patient #102 (Acute High Fever & Spasm)</div>
-                <div style={{ color: '#94a3b8', fontSize: '0.75rem' }}>Waited: 12 mins • Pediatric triage</div>
+                <div className="queue-preview-patient-name">Patient #102 (Acute High Fever & Spasm)</div>
+                <div className="queue-preview-patient-meta">Waited: 12 mins • Pediatric triage</div>
               </div>
               <span className="badge badge-warning">HIGH (74)</span>
             </div>
 
             <div className="queue-preview-item medium">
               <div>
-                <div style={{ color: '#f8fafc', fontWeight: 600, fontSize: '0.9rem' }}>Patient #098 (Persistent Joint Swelling)</div>
-                <div style={{ color: '#94a3b8', fontSize: '0.75rem' }}>Waited: 20 mins • Orthopedic triage</div>
+                <div className="queue-preview-patient-name">Patient #098 (Persistent Joint Swelling)</div>
+                <div className="queue-preview-patient-meta">Waited: 20 mins • Orthopedic triage</div>
               </div>
               <span className="badge badge-info">MEDIUM (48)</span>
             </div>
 
             <div className="queue-preview-item low">
               <div>
-                <div style={{ color: '#f8fafc', fontWeight: 600, fontSize: '0.9rem' }}>Patient #095 (Mild Skin Rash)</div>
-                <div style={{ color: '#94a3b8', fontSize: '0.75rem' }}>Waited: 25 mins • Dermatology triage</div>
+                <div className="queue-preview-patient-name">Patient #095 (Mild Skin Rash)</div>
+                <div className="queue-preview-patient-meta">Waited: 25 mins • Dermatology triage</div>
               </div>
               <span className="badge badge-neutral">LOW (20)</span>
             </div>
