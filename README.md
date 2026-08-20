@@ -39,20 +39,7 @@ MongoDB Database (Atlas / Local)
 | **DOCTOR** | Practice management, Priority Waiting Queue, appointment scheduling, active video consultation session, clinical notes/diagnosis entry, and authorized patient records. |
 | **ADMIN** | System KPIs, Doctor Credential Verification queue (document inspection, approval/rejection with remarks), patient supervision, audit logs, and analytics. |
 
----
 
-## 🔐 Default Demo Accounts
-
-Run `npm run seed` to populate the database with specializations and demo accounts:
-
-| Role | Email | Password | Status |
-|---|---|---|---|
-| 👑 **Admin** | `admin@telehealth.com` | `Admin@12345` | Active System Admin |
-| 🩺 **Doctor** | `dr.priya@telehealth.com` | `Doctor@12345` | **Approved** Cardiologist |
-| 🩺 **Doctor** | `dr.vikram@telehealth.com` | `Doctor@12345` | **Pending** Orthopedic Surgeon |
-| 👤 **Patient** | `patient@telehealth.com` | `Patient@12345` | Active Patient |
-
----
 
 ## 🚀 Getting Started
 
@@ -90,19 +77,19 @@ npm run dev
 
 ---
 
-## 🧪 End-to-End Demonstration Workflow
+## 🧪 End-to-End Workflow
 
 1. **Doctor Registration & Verification:**
    - Register as Doctor at `/register/doctor` (Status set to `PENDING`).
-   - Log in as Admin (`admin@telehealth.com` / `Admin@12345`).
+   - Log in with Administrator credentials.
    - Navigate to **Doctor Verification**, inspect credentials and submitted documents, click **Approve Doctor**.
 2. **Patient Smart Triage & Priority Booking:**
-   - Log in as Patient (`patient@telehealth.com` / `Patient@12345`).
+   - Register or log in as Patient.
    - Navigate to **Smart Triage**, input symptoms (e.g. chest pain, moderate severity, today duration).
    - Priority Engine computes urgency score (e.g. `HIGH (72/100)`).
    - Click **Book Priority Appointment** with approved specialist.
 3. **Doctor Priority Queue & Live Consultation:**
-   - Log in as Doctor (`dr.priya@telehealth.com` / `Doctor@12345`).
+   - Log in with Doctor credentials.
    - View patient at the top of the **Priority Queue**.
    - Click **Start Consultation** to enter live session room.
    - Enter clinical observations, diagnosis, and prescription advice, click **Complete Consultation**.
