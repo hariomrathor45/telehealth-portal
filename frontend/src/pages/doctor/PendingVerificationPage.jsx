@@ -18,7 +18,7 @@ const PendingVerificationPage = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: '24px',
-                background: '#f8fafc',
+                background: 'var(--bg-body)',
             }}
         >
             <div
@@ -57,15 +57,15 @@ const PendingVerificationPage = () => {
 
                 <div
                     style={{
-                        background: '#fff7ed',
-                        border: '1px solid #fed7aa',
+                        background: 'var(--warning-light)',
+                        border: '1px solid rgba(245, 158, 11, 0.3)',
                         borderRadius: '12px',
                         padding: '20px',
                         marginBottom: '24px',
                         textAlign: 'left',
                     }}
                 >
-                    <h3 style={{ marginBottom: '10px' }}>
+                    <h3 style={{ marginBottom: '10px', color: 'var(--text-primary)' }}>
                         🩺 Verification in Progress
                     </h3>
 
@@ -73,7 +73,7 @@ const PendingVerificationPage = () => {
                         style={{
                             margin: 0,
                             lineHeight: '1.6',
-                            color: '#7c2d12',
+                            color: 'var(--text-secondary)',
                         }}
                     >
                         Your medical registration details and professional information

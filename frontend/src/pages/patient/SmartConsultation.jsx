@@ -86,16 +86,16 @@ const SmartConsultation = () => {
       {/* Safety Notice */}
       <div style={{
         padding: '14px 18px',
-        background: '#f0fdf4',
-        border: '1px solid #bbf7d0',
+        background: 'var(--success-light)',
+        border: '1px solid rgba(16, 185, 129, 0.3)',
         borderRadius: 'var(--radius-md)',
         marginBottom: '24px',
         display: 'flex',
         alignItems: 'center',
         gap: '12px',
       }}>
-        <HiOutlineShieldCheck size={22} style={{ color: '#16a34a', flexShrink: 0 }} />
-        <p className="text-sm" style={{ color: '#166534', margin: 0 }}>
+        <HiOutlineShieldCheck size={22} style={{ color: 'var(--success)', flexShrink: 0 }} />
+        <p className="text-sm" style={{ color: 'var(--text-primary)', margin: 0 }}>
           <strong>Decision Support Notice:</strong> This priority assessment is an automated queuing estimate based on reported symptom severity and clinical urgency markers. It is not a medical diagnosis.
         </p>
       </div>
@@ -243,18 +243,18 @@ const SmartConsultation = () => {
           {result.assessment?.isEmergencyAlert && (
             <div style={{
               padding: '16px 20px',
-              background: '#fef2f2',
-              border: '1px solid #fecaca',
+              background: 'var(--danger-light)',
+              border: '1px solid rgba(239, 68, 68, 0.3)',
               borderRadius: 'var(--radius-md)',
               margin: '20px 0',
               display: 'flex',
               gap: '12px',
-              color: '#991b1b',
+              color: 'var(--danger-dark)',
             }}>
-              <FaExclamationTriangle size={24} style={{ flexShrink: 0, marginTop: 2 }} />
+              <FaExclamationTriangle size={24} style={{ flexShrink: 0, marginTop: 2, color: 'var(--danger)' }} />
               <div>
                 <strong style={{ fontSize: '0.95rem' }}>Acute Urgency Indicator Flagged:</strong>
-                <p style={{ fontSize: '0.85rem', margin: '4px 0 0', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '0.85rem', margin: '4px 0 0', lineHeight: 1.5, color: 'var(--text-primary)' }}>
                   {result.assessment?.emergencyMessage}
                 </p>
               </div>

@@ -161,7 +161,7 @@ const LandingPage = () => {
       </section>
 
       {/* Clinical Departments */}
-      <section className="landing-section" style={{ background: '#f8fafc', borderRadius: '24px' }}>
+      <section className="landing-section landing-section-alt">
         <div className="section-header">
           <div className="section-tag">Specialties</div>
           <h2 className="section-title">Explore Medical Departments</h2>
@@ -175,8 +175,8 @@ const LandingPage = () => {
             <div key={spec._id || spec.name} className="department-card">
               <div className="department-icon">🩺</div>
               <div>
-                <div style={{ fontWeight: 600, fontSize: '0.95rem' }}>{spec.name}</div>
-                <div style={{ color: '#64748b', fontSize: '0.75rem' }}>Specialist Care</div>
+                <div style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--text-primary)' }}>{spec.name}</div>
+                <div style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>Specialist Care</div>
               </div>
             </div>
           ))}

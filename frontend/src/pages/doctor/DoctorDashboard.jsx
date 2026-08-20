@@ -83,8 +83,8 @@ const DoctorDashboard = () => {
       {profile.verificationStatus === 'REJECTED' && (
         <div style={{
           padding: '20px 24px',
-          background: '#fef2f2',
-          border: '1px solid #fecaca',
+          background: 'var(--danger-light)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
           borderRadius: 'var(--radius-lg)',
           marginBottom: '24px',
           display: 'flex',
@@ -93,10 +93,10 @@ const DoctorDashboard = () => {
         }}>
           <span style={{ fontSize: '2rem' }}>❌</span>
           <div>
-            <h3 style={{ margin: '0 0 4px', color: '#991b1b', fontSize: '1.05rem' }}>
+            <h3 style={{ margin: '0 0 4px', color: 'var(--danger-dark)', fontSize: '1.05rem' }}>
               Verification Not Approved
             </h3>
-            <p className="text-sm" style={{ color: '#b91c1c', lineHeight: 1.6, margin: 0 }}>
+            <p className="text-sm" style={{ color: 'var(--text-primary)', lineHeight: 1.6, margin: 0 }}>
               Reason: <em>{profile.verificationRemarks || 'Documents require resubmission.'}</em> Please contact support.
             </p>
           </div>

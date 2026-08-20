@@ -317,6 +317,18 @@
   margin: 0 auto;
 }
 
+.landing-section-alt {
+  background: var(--slate-100);
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  transition: background var(--transition-base), border-color var(--transition-base);
+}
+
+[data-theme="dark"] .landing-section-alt {
+  background: rgba(19, 27, 46, 0.5);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 .section-header {
   text-align: center;
   margin-bottom: 56px;
